@@ -1,7 +1,16 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import database from '../../firebase/firebase';
-import { addExpense, editExpense, removeExpense, startAddExpense, setExpenses, startSetExpenses } from '../../actions/expenses';
+import { 
+    addExpense, 
+    editExpense, 
+    removeExpense, 
+    startAddExpense, 
+    setExpenses, 
+    startSetExpenses, 
+    startRemoveExpense, 
+    startEditExpense 
+} from '../../actions/expenses';
 import expenses from '../fixtures/expenses';
 
 const createMockStore = configureMockStore([thunk]);
@@ -108,6 +117,49 @@ test('Should fetch the expenses from firebase', (done) => {
         expect(actions[0]).toEqual({
             type: 'SET_EXPENSES',
             expenses
+        });
+        done();
+    });
+});
+
+test('Should remove expenses from firebase', (done) => {
+    const store = createMockStore({});
+    const id = expenses[1].id;
+    store.dispatch(startRemoveExpense({ id })).then(() => {
+        const actions = store.getActions();
+        expect(actions[0]).toEqual({
+            type: 'REMOVE_EXPENSE',
+            id
+        });
+        return database.ref(`expenses/${id}`).once('value');
+    }).then((snapshot) => {
+        expect(snapshot.val()).toBeFalsy();
+        done();
+    });
+});
+
+test('Should edit expense from firebase', (done) => {
+    const store = createMockStore({});
+    const { id, createdAt, note } = expenses[0];
+    const updates = {
+        description: 'Rent Updated',
+        amount: 50000
+    };
+    store.dispatch(startEditExpense(id, updates)).then(() => {
+        const actions = store.getActions();
+        expect(actions[0]).toEqual({
+            type: 'EDIT_EXPENSE',
+            id,
+            updates
+        });
+        return database.ref(`expenses/${id}`).once('value');
+    }).then((snapshot) => {
+        expect({
+            id: snapshot.key,
+            ...snapshot.val()
+        }).toEqual({
+            ...expenses[0],
+            ...updates
         });
         done();
     });
