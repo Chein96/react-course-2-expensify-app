@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render LoginPage correctly 1`] = `
+<div>
+  Welcome to the Expensify App
+  <button
+    onClick={[Function]}
+  >
+    Login
+  </button>
+</div>
+`;
