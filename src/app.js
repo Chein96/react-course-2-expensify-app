@@ -5,11 +5,14 @@ import AppRouter, { history } from './routers/AppRouter';
 import configureStore from './store/configureStore';
 import { startSetExpenses } from './actions/expenses';
 import { login, logout } from './actions/auth';
+import Modal from 'react-modal';
 import 'normalize.css/normalize.css';
 import 'react-dates/lib/css/_datepicker.css';
 import './styles/styles.scss';
 import  { firebase } from './firebase/firebase';
 import LoadingPage from './components/LoadingPage';
+
+Modal.setAppElement('#app');
 
 const store = configureStore();
 const jsx = (

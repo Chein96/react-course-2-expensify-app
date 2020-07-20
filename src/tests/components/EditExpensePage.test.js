@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import Modal from 'react-modal';
 import { EditExpensePage } from '../../components/EditExpensePage';
 import expenses from '../fixtures/expenses';
 
@@ -26,8 +27,25 @@ test('Should handle startEditExpense', () => {
     expect(history.push).toHaveBeenLastCalledWith('/');
 });
 
-test('Should handle startRemoveExpense', () => {
-    wrapper.find('button').simulate('click');
+test('Should handle changeVisibility on click', () => {
+    wrapper.find('button').at(0).simulate('click');
+    expect(wrapper.state('visibility')).toBeTruthy();
+});
+
+test('Should handle startRemoveExpense on confirmation modal', () => {
+    wrapper.find('button').at(1).simulate('click');
     expect(startRemoveExpense).toHaveBeenLastCalledWith({ id: expenses[1].id });
     expect(history.push).toHaveBeenLastCalledWith('/');
+});
+
+test('Should hide confirmation modal', () => {
+    wrapper.find('button').at(0).simulate('click');
+    wrapper.find('button').at(2).simulate('click');
+    expect(wrapper.state('visibility')).toBeFalsy();
+});
+
+test('Should hide confirmation modal on user request', () => {
+    wrapper.find('button').at(0).simulate('click');
+    wrapper.find(Modal).prop('onRequestClose')();
+    expect(wrapper.state('visibility')).toBeFalsy();
 });
