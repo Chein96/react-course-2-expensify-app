@@ -21,6 +21,11 @@ exports[`Should render ExpensesSummary with 1 expense correctly 1`] = `
         $2.35
       </span>
     </h1>
+    <h3
+      className="page-header__subtitle"
+    >
+      No hidden expenses.
+    </h3>
     <div
       className="page-header__actions"
     >
@@ -56,6 +61,11 @@ exports[`Should render ExpensesSummary with multiple expenses correctly 1`] = `
         $235,123,409.87
       </span>
     </h1>
+    <h3
+      className="page-header__subtitle"
+    >
+      3 hidden expenses with current filters.
+    </h3>
     <div
       className="page-header__actions"
     >

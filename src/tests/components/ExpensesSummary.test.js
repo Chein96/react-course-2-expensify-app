@@ -7,6 +7,7 @@ test('Should render ExpensesSummary with 1 expense correctly', () => {
         <ExpensesSummary 
             expenseCount={1}
             expensesTotal={235}
+            hiddenExpensesCount={0}
         />
     );
     expect(wrapper).toMatchSnapshot();
@@ -17,6 +18,7 @@ test('Should render ExpensesSummary with multiple expenses correctly', () => {
         <ExpensesSummary 
             expenseCount={23}
             expensesTotal={23512340987}
+            hiddenExpensesCount={3}
         />
     );
     expect(wrapper).toMatchSnapshot();
