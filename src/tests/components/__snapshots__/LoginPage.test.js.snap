@@ -22,10 +22,16 @@ exports[`Should render LoginPage correctly 1`] = `
       Login with Google
     </button>
     <button
-      className="button"
+      className="button button--margin"
       onClick={[Function]}
     >
       Login with Facebook
+    </button>
+    <button
+      className="button"
+      onClick={[Function]}
+    >
+      Login with Github
     </button>
   </div>
 </div>
